@@ -9,7 +9,8 @@ import shutil
 from tkinter import filedialog
 import tkinter.messagebox
 
-
+# ffmpeg_path = 'ffmpeg.exe'
+ffmpeg_path = 'ffmpeg'
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
@@ -48,7 +49,7 @@ image_1 = canvas.create_image(
 #转成ogg
 def a_convert(input, output):
     try:
-        cmd = "ffmpeg.exe -y -i %s -acodec libvorbis %s" % ('\"' + input + '\"', '\"' + output + '\"')
+        cmd = ffmpeg_path + " -y -i %s -acodec libvorbis %s" % ('\"' + input + '\"', '\"' + output + '\"')
         res = subprocess.call(cmd, shell=True)
         if res != 0:
             return False
@@ -57,7 +58,7 @@ def a_convert(input, output):
         return False
 def a_speed(input_file, speed, out_file):
     try:
-        cmd = "ffmpeg.exe -y -i %s -filter_complex \"atempo=tempo=%s\" %s" % (input_file, speed, out_file)
+        cmd = ffmpeg_path + " -y -i %s -filter_complex \"atempo=tempo=%s\" %s" % (input_file, speed, out_file)
         res = subprocess.call(cmd, shell=True)
 
         if res != 0:
